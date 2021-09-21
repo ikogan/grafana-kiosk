@@ -6,7 +6,10 @@
   "scripts": {
     "start": "electron .",
     "clean": "rm -Rf out",
-    "build": "electron-packager . grafana-kiosk --arch x64,armv7l,arm64 --platform linux,win32,darwin --out=out --asar",
+    "build-all": "electron-packager . grafana-kiosk --arch x64,armv7l,arm64 --platform linux,win32,darwin --out=out --asar",
+    "build-darwin": "electron-packager . grafana-kiosk --arch x64,armv7l,arm64 --platform darwin --out=out --asar",
+    "build-win": "electron-packager . grafana-kiosk --arch x64,armv7l,arm64 --platform win32 --out=out --asar",
+    "build-linux": "electron-packager . grafana-kiosk --arch x64,armv7l,arm64 --platform linux --out=out --asar",
     "deb-amd64": "electron-installer-debian --src out/grafana-kiosk-linux-x64/ --dest out/installers/ --arch amd64",
     "deb-armhf": "electron-installer-debian --src out/grafana-kiosk-linux-armv7l/ --dest out/installers/ --arch armhf",
     "deb-arm64": "electron-installer-debian --src out/grafana-kiosk-linux-arm64/ --dest out/installers/ --arch arm64",

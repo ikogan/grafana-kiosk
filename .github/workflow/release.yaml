@@ -1,0 +1,83 @@
+name: Build/Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  build_on_linux:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.17
+      - name: Install Dependencies
+        run: |
+          sudo apt-get -y install rpm
+          npm install
+      - name: Build on Linux
+        run: npm run build-linux
+      - name: Package on Linux
+        run: |
+          npm run deb-amd64
+          npm run deb-armhf
+          npm run deb-arm64
+          npm run rpm-x85_64
+          npm run rpm-armhfp
+          npm run rpm-aarch64
+          npm run snap
+  build_on_mac:
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.17
+      - name: Install Dependencies
+        run: npm install
+      - name: Build on MacOS
+        run: npm run build-darwin
+      - name: Package on MacOS
+        run: |
+          npm run darwin-x65
+          npm run darwin-arm64
+      - name: Check Output
+        run: ls out/installers
+      - uses: softprops/action-gh-release@v1
+        with:
+          files:
+            - out/installers/*.dmg
+  build_on_win:
+    runs-on: windows-2016
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.17
+      - name: install node tools
+        run: npm install --global --production windows-build-tools@4.0.0
+      - name: install node-gyp
+        run: npm install --global node-gyp@latest
+      - name: Set node config to use python2.7
+        run: npm config set python python2.7
+      - name: Set node config to set msvs_version to 2015
+        run: npm config set msvs_version 2015
+      - name: Work around for Windows Server 2019
+        run: set path=%path%;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin
+      - name: Install Dependencies
+        run: npm install
+      - name: Build on Windows
+        run: npm run build-win
+      - name: Package on Windows
+        run: |
+          npm run win-x65
+          npm run win-arm64
+      - name: Check Output
+        run: ls out/installers
+      - uses: softprops/action-gh-release@v1
+        with:
+          files:
+            - out/installers/*.exe
+            - out/installers/*.msi
