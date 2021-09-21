@@ -4,6 +4,8 @@ on:
   push:
     tags:
       - "v*.*.*"
+    branches:
+      - main
 
 jobs:
   build_on_linux:
@@ -17,6 +19,7 @@ jobs:
         run: |
           sudo apt-get -y install rpm
           npm install
+          npm install electron-installer-redhat electron-installer-debian
       - name: Build on Linux
         run: npm run build-linux
       - name: Package on Linux
@@ -24,17 +27,16 @@ jobs:
           npm run deb-amd64
           npm run deb-armhf
           npm run deb-arm64
-          npm run rpm-x85_64
+          npm run rpm-x86_64
           npm run rpm-armhfp
           npm run rpm-aarch64
-          npm run snap
       - name: Check Output
         run: ls out/installers
       - uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            out/installers/*.deb
-            out/installers/*.rpm
+            out/installers/grafana-kiosk*
   build_on_mac:
     runs-on: macos-latest
     steps:
@@ -43,48 +45,57 @@ jobs:
         with:
           node-version: 14.17
       - name: Install Dependencies
-        run: npm install
+        run: |
+          npm install
+          npm install macos-alias electron-installer-dmg
       - name: Build on MacOS
         run: npm run build-darwin
       - name: Package on MacOS
         run: |
-          npm run darwin-x65
+          npm run darwin-x64
           npm run darwin-arm64
       - name: Check Output
         run: ls out/installers
       - uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            out/installers/*.dmg
+            out/installers/grafana-kiosk*
   build_on_win:
-    runs-on: windows-2016
+    runs-on: windows-2019
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
           node-version: 14.17
-      - name: install node tools
-        run: npm install --global --production windows-build-tools@4.0.0
-      - name: install node-gyp
-        run: npm install --global node-gyp@latest
-      - name: Set node config to use python2.7
-        run: npm config set python python2.7
-      - name: Set node config to set msvs_version to 2015
-        run: npm config set msvs_version 2015
+      - name: Install Node Tools
+        run: npm install --global --production windows-build-tools@4.0.0 node-gyp@latest
+      - name: Configure Node Build Environment
+        run: |
+          npm config set python python2.7
+          npm config set msvs_version 2015
       - name: Work around for Windows Server 2019
-        run: set path=%path%;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin
+        run: set path=%path%;"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin"
       - name: Install Dependencies
-        run: npm install
+        run: |
+          npm install
+          npm install electron-installer-windows
       - name: Build on Windows
         run: npm run build-win
       - name: Package on Windows
         run: |
-          npm run win-x65
+          npm run win-x64
           npm run win-arm64
+      - name: Fix Filenames
+        run: |
+          Get-ChildItem .\out\installers\x64\* -Exclude RELEASES | Rename-Item -NewName { $_.Name -replace 'grafana_kiosk-','grafana-kiosk-x64-' }
+          Get-ChildItem .\out\installers\arm64\* -Exclude RELEASES | Rename-Item -NewName { $_.Name -replace 'grafana_kiosk-','grafana-kiosk-arm64-' }
+          Get-ChildItem .\out\installers\x64\* -Exclude RELEASES | Move-Item -Destination .\out\installers
+          Get-ChildItem .\out\installers\arm64\* -Exclude RELEASES | Move-Item -Destination .\out\installers
       - name: Check Output
         run: ls out/installers
       - uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            out/installers/*.exe
-            out/installers/*.msi
+            out/installers/grafana-kiosk*

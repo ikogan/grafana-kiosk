@@ -27,7 +27,8 @@ function createWindow(url, monitor, kiosk) {
 
     const win = new BrowserWindow(options)
 
-    win.webContents.on('renderer-process-gonee', () => {
+    win.webContents.on('renderer-process-gone', () => {
+        console.warn("Renderer crashed, reloading")
         win.reload()
     })
 

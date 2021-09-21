@@ -35,3 +35,19 @@ Options:
 
 Boolean options can be turned off with --no-{option}
 ```
+
+## Manual Installation
+
+While `electron-packager` is included as a dependency, the platform specific
+packages are not. Depending on the platform you're using, run the following:
+
+Windows: `npm install electron-installer-windows`
+MacOS: `npm install macos-alias electron-installer-dmg`
+Debian: `npm install electron-installer-debian`
+Redhat: `npm install electron-installer-redhat`
+
+You can then run `npm run build-{os}` and `npm run {platform}-{arch}`. For details
+see [`package.json`](package.json).
+
+If building is not working on your platform, check the [GitHub Action](.github/workflows/release.yml)
+for what the action does.

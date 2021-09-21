@@ -7,8 +7,8 @@
     "start": "electron .",
     "clean": "rm -Rf out",
     "build-all": "electron-packager . grafana-kiosk --arch x64,armv7l,arm64 --platform linux,win32,darwin --out=out --asar",
-    "build-darwin": "electron-packager . grafana-kiosk --arch x64,armv7l,arm64 --platform darwin --out=out --asar",
-    "build-win": "electron-packager . grafana-kiosk --arch x64,armv7l,arm64 --platform win32 --out=out --asar",
+    "build-darwin": "electron-packager . grafana-kiosk --arch x64,arm64 --platform darwin --out=out --asar",
+    "build-win": "electron-packager . grafana-kiosk --arch x64,arm64 --platform win32 --out=out --asar",
     "build-linux": "electron-packager . grafana-kiosk --arch x64,armv7l,arm64 --platform linux --out=out --asar",
     "deb-amd64": "electron-installer-debian --src out/grafana-kiosk-linux-x64/ --dest out/installers/ --arch amd64",
     "deb-armhf": "electron-installer-debian --src out/grafana-kiosk-linux-armv7l/ --dest out/installers/ --arch armhf",
@@ -16,11 +16,10 @@
     "rpm-x86_64": "electron-installer-redhat --src out/grafana-kiosk-linux-x64/ --dest out/installers/ --arch x86_64",
     "rpm-armhfp": "electron-installer-redhat --src out/grafana-kiosk-linux-armv7l/ --dest out/installers/ --arch armhfp",
     "rpm-aarch64": "electron-installer-redhat --src out/grafana-kiosk-linux-arm64/ --dest out/installers/ --arch aarch64",
-    "snap": "electron-installer-snap --src out/grafana-kiosk-linux-x64/ --dest out/installers/",
-    "win-x64": "electron-installer-windows --src out/grafana-kiosk-win32-x64/ --dest out/installers/",
-    "win-arm64": "electron-installer-windows --src out/grafana-kiosk-win32-arm64/ --dest out/installers/",
-    "darwin-x64": "electron-installer-dmg --src out/grafana-kiosk-darwin-x64/grafana-kiosk.app --out out/installers/",
-    "darwin-arm64": "electron-installer-dmg --src out/grafana-kiosk-darwin-arm64/grafana-kiosk.app --out out/installers/"
+    "win-x64": "electron-installer-windows --src out/grafana-kiosk-win32-x64/ --dest out/installers/x64",
+    "win-arm64": "electron-installer-windows --src out/grafana-kiosk-win32-arm64/ --dest out/installers/arm64",
+    "darwin-x64": "electron-installer-dmg --out out/installers --title 'Grafana Kiosk' out/grafana-kiosk-darwin-x64/grafana-kiosk.app  grafana-kiosk-x64",
+    "darwin-arm64": "electron-installer-dmg --out out/installers --title 'Grafana Kiosk' out/grafana-kiosk-darwin-arm64/grafana-kiosk.app grafana-kiosk-arm64"
   },
   "keywords": [
     "electron",
@@ -31,12 +30,6 @@
   "license": "ISC",
   "devDependencies": {
     "electron": "^14.0.1",
-    "electron-installer-debian": "^3.1.0",
-    "electron-installer-dmg": "^3.0.0",
-    "electron-installer-flatpak": "^0.8.0",
-    "electron-installer-redhat": "^3.3.0",
-    "electron-installer-snap": "^5.1.0",
-    "electron-installer-windows": "^3.0.0",
     "electron-packager": "^15.4.0"
   },
   "dependencies": {
