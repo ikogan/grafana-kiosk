@@ -28,8 +28,15 @@ jobs:
           npm run rpm-armhfp
           npm run rpm-aarch64
           npm run snap
+      - name: Check Output
+        run: ls out/installers
+      - uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            out/installers/*.deb
+            out/installers/*.rpm
   build_on_mac:
-    runs-on: macOS-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -47,8 +54,8 @@ jobs:
         run: ls out/installers
       - uses: softprops/action-gh-release@v1
         with:
-          files:
-            - out/installers/*.dmg
+          files: |
+            out/installers/*.dmg
   build_on_win:
     runs-on: windows-2016
     steps:
@@ -78,6 +85,6 @@ jobs:
         run: ls out/installers
       - uses: softprops/action-gh-release@v1
         with:
-          files:
-            - out/installers/*.exe
-            - out/installers/*.msi
+          files: |
+            out/installers/*.exe
+            out/installers/*.msi
