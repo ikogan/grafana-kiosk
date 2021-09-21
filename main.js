@@ -22,6 +22,8 @@ function createWindow(url, monitor, kiosk) {
 
     options['x'] = displays[monitor].bounds.x
     options['y'] = displays[monitor].bounds.y
+    options['width'] = displays[monitor].bounds.width
+    options['height'] = displays[monitor].bounds.height
 
     const win = new BrowserWindow(options)
 
