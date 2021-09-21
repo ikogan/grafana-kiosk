@@ -35,10 +35,3 @@ Options:
 
 Boolean options can be turned off with --no-{option}
 ```
-
-## Building
-
-Dependencies:
-
-- `mono-runtime`
-- `rpm`
