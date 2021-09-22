@@ -6,7 +6,7 @@ when it crashes.
 
 ## Why?
 
-Grafana 7.x introduced a new Time Series chart that had
+Grafana 7.4 introduced a new Time Series chart that had
 a few memory leaks, causing the browser tab to crash. These
 were eventually fixed but then the Grafana Zabbix plugin
 _also_ introduced a tab crashing memory issue.
