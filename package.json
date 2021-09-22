@@ -1,6 +1,6 @@
 {
   "name": "grafana-kiosk",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A simple kiosk application to display Grafana dashboards.",
   "main": "main.js",
   "scripts": {
