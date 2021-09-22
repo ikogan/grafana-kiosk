@@ -1,6 +1,6 @@
 # Simple Kiosk for Grafana Dashboards
 
-Very dump and simple electron app primarily designed to
+Very dumb and simple electron app primarily designed to
 display Grafana dashboards in Kiosk mode and reload the tab
 when it crashes.
 
