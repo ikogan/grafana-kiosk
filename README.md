@@ -30,6 +30,7 @@ Options:
   -m, --monitor  Monitor number to display on.                      [default: 0]
   -k, --kiosk    Kiosk mode and fullscreen.            [boolean] [default: true]
   -h, --help     Show help                                             [boolean]
+      --crash    Crash after n millseconds                              [number]
   -u, --url      URL to the dashboard to load. Don't forget the kiosk option.
                                                                       [required]
 
