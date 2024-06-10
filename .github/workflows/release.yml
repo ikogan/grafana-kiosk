@@ -70,12 +70,6 @@ jobs:
           node-version: 20.14
       - name: Install Node Tools
         run: npm install --global --production node-gyp@latest
-      - name: Configure Node Build Environment
-        run: |
-          npm config set python python2.7
-          npm config set msvs_version 2015
-      - name: Work around for Windows Server 2019
-        run: set path=%path%;"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin"
       - name: Install Dependencies
         run: |
           npm install
