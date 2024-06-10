@@ -9,12 +9,12 @@ on:
 
 jobs:
   build_on_linux:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: 14.17
+          node-version: 20.14
       - name: Install Dependencies
         run: |
           sudo apt-get -y install rpm
@@ -43,7 +43,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: 14.17
+          node-version: 20.14
       - name: Install Dependencies
         run: |
           npm install
@@ -62,12 +62,12 @@ jobs:
           files: |
             out/installers/grafana-kiosk*
   build_on_win:
-    runs-on: windows-2019
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: 14.17
+          node-version: 20.14
       - name: Install Node Tools
         run: npm install --global --production windows-build-tools@4.0.0 node-gyp@latest
       - name: Configure Node Build Environment

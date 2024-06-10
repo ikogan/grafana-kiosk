@@ -1,6 +1,6 @@
 {
   "name": "grafana-kiosk",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A simple kiosk application to display Grafana dashboards.",
   "main": "main.js",
   "scripts": {
@@ -29,10 +29,12 @@
   "author": "Ilya Kogan <ikogan@mythicnet.org>",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^14.0.1",
-    "electron-packager": "^15.4.0"
+    "@electron/packager": "^18.3.0",
+    "electron": "^30.0.0"
   },
   "dependencies": {
-    "yargs": "^17.1.1"
+    "electron-installer-debian": "^3.2.0",
+    "electron-installer-redhat": "^3.4.0",
+    "yargs": "^17.7.2"
   }
 }
