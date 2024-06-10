@@ -32,7 +32,7 @@ jobs:
           npm run rpm-aarch64
       - name: Check Output
         run: ls out/installers
-      - uses: softprops/action-gh-release@v1
+      - uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
@@ -56,7 +56,7 @@ jobs:
           npm run darwin-arm64
       - name: Check Output
         run: ls out/installers
-      - uses: softprops/action-gh-release@v1
+      - uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
@@ -88,7 +88,7 @@ jobs:
           Get-ChildItem .\out\installers\arm64\* -Exclude RELEASES | Move-Item -Destination .\out\installers
       - name: Check Output
         run: ls out/installers
-      - uses: softprops/action-gh-release@v1
+      - uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
