@@ -11,8 +11,8 @@ jobs:
   build_on_linux:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20.14
       - name: Install Dependencies
@@ -40,8 +40,8 @@ jobs:
   build_on_mac:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20.14
       - name: Install Dependencies
@@ -64,12 +64,12 @@ jobs:
   build_on_win:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20.14
       - name: Install Node Tools
-        run: npm install --global --production windows-build-tools@4.0.0 node-gyp@latest
+        run: npm install --global --production node-gyp@latest
       - name: Configure Node Build Environment
         run: |
           npm config set python python2.7
