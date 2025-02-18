@@ -14,7 +14,7 @@ function createWindow(url, options, crash=-1) {
     return win
 }
 
-const argv = require('yargs')(process.argv.slice(2))
+const argv = require('yargs')(process.argv.slice(1))
     .scriptName('grafana-kiosk')
     .usage('$0 [args]')
     .demandOption(['u'])
